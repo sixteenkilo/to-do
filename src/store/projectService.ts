@@ -14,7 +14,7 @@ type Store = {
   deleteProject: (id: string) => void;
 };
 
-export const useStore = create<Store>((set) => ({
+export const useProject = create<Store>((set) => ({
   projects: [],
 
   createProject: (title, description) => {
