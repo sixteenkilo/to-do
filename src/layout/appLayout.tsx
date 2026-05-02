@@ -1,6 +1,7 @@
 import { Layout, theme } from "antd";
 import { AppSider } from "./appSider";
 import { AppHeader } from "./appHeader";
+import { Outlet } from "react-router-dom";
 
 const { Content, Footer } = Layout;
 export const AppLayout = () => {
@@ -23,7 +24,7 @@ export const AppLayout = () => {
               height: "100%",
             }}
           >
-            Bill is a cat.
+            <Outlet />
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
