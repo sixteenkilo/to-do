@@ -9,10 +9,14 @@ import {
 } from "@ant-design/icons";
 import { useProject } from "../store/projectService";
 import { CreateProject } from "../components/createProject";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const items = [
-  { key: "all", icon: <UnorderedListOutlined />, label: "Все" },
+  {
+    key: "all",
+    icon: <UnorderedListOutlined />,
+    label: <Link to="/">"Все"</Link>,
+  },
   { key: "today", icon: <CalendarOutlined />, label: "Завтра" },
   { key: "week", icon: <ClockCircleOutlined />, label: "На этой неделе" },
   { key: "overdue", icon: <WarningOutlined />, label: "Просроченные" },
