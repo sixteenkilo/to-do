@@ -15,7 +15,7 @@ type Store = {
 };
 
 export const useProject = create<Store>((set) => ({
-  projects: [],
+  projects: [{ id: "project-1", title: "1", description: "1" }],
 
   createProject: (title, description) => {
     set((state) => {
