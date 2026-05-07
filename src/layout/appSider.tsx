@@ -27,7 +27,11 @@ const items = [
     icon: <ClockCircleOutlined />,
     label: <Link to="/week">На этой неделе</Link>,
   },
-  { key: "overdue", icon: <WarningOutlined />, label: "Просроченные" },
+  {
+    key: "overdue",
+    icon: <WarningOutlined />,
+    label: <Link to="/overdue">Просроченные</Link>,
+  },
 ];
 
 const { Sider } = Layout;
