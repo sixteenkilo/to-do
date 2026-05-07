@@ -1,4 +1,4 @@
-import { Button, Checkbox, Flex, Row, Tag, Typography } from "antd";
+import { Button, Checkbox, Flex, Row, Tag, theme, Typography } from "antd";
 import { useTask } from "../store/taskService";
 import type { Task } from "../store/taskService";
 import { DeleteOutlined } from "@ant-design/icons";
@@ -12,7 +12,7 @@ interface Props {
 export const TaskElement = ({ task }: Props) => {
   const updateTask = useTask((s) => s.updateTask);
   const destroyTask = useTask((s) => s.deleteTask);
-
+  const { token } = theme.useToken();
   const formatDate = (date: string | null) => {
     if (!date) return null;
     return new Date(date).toLocaleDateString();
@@ -24,11 +24,12 @@ export const TaskElement = ({ task }: Props) => {
       justify="space-between"
       style={{
         padding: "10px 12px",
-        borderBottom: "1px solid #f5f5f5",
-        transition: "all 0.2s",
+        borderBottom: `1px solid ${token.colorBorderSecondary}`,
+        transition: "all 0.2s ease",
+        borderRadius: 8,
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.background = "#fafafa";
+        e.currentTarget.style.background = token.colorFillTertiary;
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.background = "transparent";

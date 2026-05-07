@@ -1,10 +1,12 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Flex, Input, DatePicker } from "antd";
+import { Button, Flex, Input, DatePicker, theme } from "antd";
 import { useState } from "react";
 import { Dayjs } from "dayjs";
 import { useTask } from "../store/taskService";
 
 export const CreateTask = ({ projectId }: { projectId: string }) => {
+  const { token } = theme.useToken();
+
   const createTask = useTask((s) => s.createTask);
 
   const [open, setOpen] = useState(false);
@@ -28,11 +30,15 @@ export const CreateTask = ({ projectId }: { projectId: string }) => {
           padding: "10px 12px",
           borderRadius: 8,
           cursor: "pointer",
-          color: "#1677ff",
-          transition: "background 0.2s",
+          color: token.colorPrimary,
+          transition: "all 0.2s ease",
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.background = "#f5f5f5")}
-        onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = token.colorFillTertiary;
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "transparent";
+        }}
         onClick={() => setOpen(true)}
       >
         <PlusOutlined /> Добавить задачу
@@ -44,9 +50,9 @@ export const CreateTask = ({ projectId }: { projectId: string }) => {
     <div
       style={{
         padding: "12px",
-        border: "1px solid #f0f0f0",
+        border: `1px solid ${token.colorBorderSecondary}`,
         borderRadius: 8,
-        background: "#fafafa",
+        background: token.colorFillQuaternary,
       }}
     >
       <Flex vertical gap={8}>
@@ -76,7 +82,15 @@ export const CreateTask = ({ projectId }: { projectId: string }) => {
             Добавить
           </Button>
 
-          <Button onClick={() => setOpen(false)}>Отмена</Button>
+          <Button
+            onClick={() => {
+              setOpen(false);
+              setTitle("");
+              setDate(null);
+            }}
+          >
+            Отмена
+          </Button>
         </Flex>
       </Flex>
     </div>

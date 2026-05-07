@@ -1,4 +1,4 @@
-import { Button, Layout, Menu, Divider } from "antd";
+import { Button, Layout, Menu, Divider, Typography } from "antd";
 import { useState } from "react";
 import {
   UnorderedListOutlined,
@@ -35,7 +35,7 @@ const items = [
 ];
 
 const { Sider } = Layout;
-
+const { Title } = Typography;
 export const AppSider = () => {
   const location = useLocation();
   const activeKey = location.pathname.split("/").pop();
@@ -62,7 +62,7 @@ export const AppSider = () => {
       >
         <div>
           {/* LOGO */}
-          <div
+          <Title
             style={{
               height: 64,
               display: "flex",
@@ -74,7 +74,7 @@ export const AppSider = () => {
             }}
           >
             {collapsed ? "TD" : "To Do"}
-          </div>
+          </Title>
 
           <Menu defaultSelectedKeys={["all"]} mode="inline" items={items} />
           {!collapsed && <Divider style={{ margin: "12px 0" }} />}

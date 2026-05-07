@@ -1,4 +1,4 @@
-import { Button, Flex, Popconfirm, Typography } from "antd";
+import { Button, Flex, Popconfirm, theme, Typography } from "antd";
 import { useProject } from "../store/projectService";
 import { useNavigate, useParams } from "react-router-dom";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
@@ -12,6 +12,7 @@ const { Title, Paragraph } = Typography;
 export const ProjectView = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { token } = theme.useToken();
   const tasksData = useTask((s) => s.tasks)
     .filter((item) => item.projectId === id)
     .sort((a, b) => {
@@ -73,12 +74,19 @@ export const ProjectView = () => {
               <EditOutlined
                 style={{
                   fontSize: 16,
-                  color: "#999",
+                  color: token.colorTextSecondary,
                   cursor: "pointer",
-                  opacity: 0.6,
+                  opacity: 0.7,
+                  transition: "all 0.2s ease",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.6")}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.opacity = "1";
+                  e.currentTarget.style.color = token.colorPrimary;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.opacity = "0.7";
+                  e.currentTarget.style.color = token.colorTextSecondary;
+                }}
               />
             </div>
 
@@ -87,11 +95,13 @@ export const ProjectView = () => {
               editable={{
                 icon: null,
                 onChange: (value) => {
-                  updateProject(project.id, { description: value });
+                  updateProject(project.id, {
+                    description: value,
+                  });
                 },
               }}
               style={{
-                color: "#666",
+                color: token.colorTextSecondary,
                 marginTop: 4,
               }}
             >

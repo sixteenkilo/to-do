@@ -1,5 +1,7 @@
-import { Layout, Breadcrumb, theme } from "antd";
+import { MoonOutlined, SunOutlined } from "@ant-design/icons";
+import { Layout, Breadcrumb, theme, Button, Flex } from "antd";
 import { useEffect, useState } from "react";
+import { useThemeStore } from "../store/modeService";
 
 const { Header } = Layout;
 
@@ -8,6 +10,8 @@ export const AppHeader = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  const toggle = useThemeStore((s) => s.toggleTheme);
+  const mode = useThemeStore((s) => s.darkMode);
   const [now, setNow] = useState(new Date());
 
   // Текущая дата
@@ -39,10 +43,19 @@ export const AppHeader = () => {
     >
       <Breadcrumb items={[{ title: "Главная" }, { title: "Все задачи" }]} />
 
-      <div style={{ textAlign: "right", lineHeight: 1.2 }}>
-        <div style={{ fontSize: 12, opacity: 0.7 }}>{date}</div>
-        <div style={{ fontSize: 20, fontWeight: 600 }}>{time}</div>
-      </div>
+      <Flex gap={8} align="center">
+        <div style={{ textAlign: "right", lineHeight: 1.2 }}>
+          <div style={{ fontSize: 12, opacity: 0.7 }}>{date}</div>
+          <div style={{ fontSize: 20, fontWeight: 600 }}>{time}</div>
+        </div>
+        <Button
+          icon={mode ? <SunOutlined /> : <MoonOutlined />}
+          shape="circle"
+          onClick={toggle}
+          variant="solid"
+          color={mode ? "yellow" : "blue"}
+        ></Button>
+      </Flex>
     </Header>
   );
 };
