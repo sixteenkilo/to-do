@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 type Project = {
   id: string;
@@ -10,47 +11,46 @@ type Store = {
   projects: Project[];
 
   createProject: (title: string, description?: string) => void;
+
   updateProject: (id: string, data: Partial<Project>) => void;
+
   deleteProject: (id: string) => void;
 };
 
-export const useProject = create<Store>((set) => ({
-  projects: [{ id: "project-1", title: "1", description: "1" }],
+export const useProject = create<Store>()(
+  persist(
+    (set) => ({
+      projects: [],
 
-  createProject: (title, description) => {
-    set((state) => {
-      const newProject: Project = {
-        id: crypto.randomUUID(),
-        title,
-        description,
-      };
+      createProject: (title, description) => {
+        set((state) => ({
+          projects: [
+            ...state.projects,
+            {
+              id: crypto.randomUUID(),
+              title,
+              description,
+            },
+          ],
+        }));
+      },
 
-      return {
-        projects: [...state.projects, newProject],
-      };
-    });
-  },
+      updateProject: (id, data) => {
+        set((state) => ({
+          projects: state.projects.map((p) =>
+            p.id === id ? { ...p, ...data } : p,
+          ),
+        }));
+      },
 
-  updateProject: (id, data) => {
-    set((state) => {
-      const updated = state.projects.map((p) => {
-        if (p.id === id) {
-          return { ...p, ...data };
-        }
-        return p;
-      });
-
-      return { projects: updated };
-    });
-  },
-
-  deleteProject: (id) => {
-    set((state) => {
-      const filtered = state.projects.filter((p) => {
-        return p.id !== id;
-      });
-
-      return { projects: filtered };
-    });
-  },
-}));
+      deleteProject: (id) => {
+        set((state) => ({
+          projects: state.projects.filter((p) => p.id !== id),
+        }));
+      },
+    }),
+    {
+      name: "project-storage",
+    },
+  ),
+);
