@@ -17,7 +17,11 @@ const items = [
     icon: <UnorderedListOutlined />,
     label: <Link to="/">"Все"</Link>,
   },
-  { key: "today", icon: <CalendarOutlined />, label: "Завтра" },
+  {
+    key: "today",
+    icon: <CalendarOutlined />,
+    label: <Link to="/tomorrow">Завтра</Link>,
+  },
   { key: "week", icon: <ClockCircleOutlined />, label: "На этой неделе" },
   { key: "overdue", icon: <WarningOutlined />, label: "Просроченные" },
 ];
