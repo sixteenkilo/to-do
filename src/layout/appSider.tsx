@@ -22,7 +22,11 @@ const items = [
     icon: <CalendarOutlined />,
     label: <Link to="/tomorrow">Завтра</Link>,
   },
-  { key: "week", icon: <ClockCircleOutlined />, label: "На этой неделе" },
+  {
+    key: "week",
+    icon: <ClockCircleOutlined />,
+    label: <Link to="/week">На этой неделе</Link>,
+  },
   { key: "overdue", icon: <WarningOutlined />, label: "Просроченные" },
 ];
 
